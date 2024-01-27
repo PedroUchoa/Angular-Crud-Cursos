@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Courses } from '../model/courses';
+import { CoursesService } from '../services/courses.service';
+import { Observable, first, tap } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit{
 
-  courses: Courses[] = [
-    { _id: '1', name: 'Angular', category: 'front-end' }
-  ]
+  courses: Observable<Courses[]>;
 
   displayedColumns = ['name','category'];
+
+  constructor(private courseService: CoursesService){
+    this.courses = this.courseService.list()
+    .pipe(
+      first()
+    );
+  }
+
+  ngOnInit(): void {
+  }
+
 
 }
