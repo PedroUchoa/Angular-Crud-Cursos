@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { catchError, Observable, of } from 'rxjs';
 
+import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
 import { Courses } from '../model/courses';
 import { CoursesService } from '../services/courses.service';
-import { Observable, delay, first, tap } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -15,13 +17,23 @@ export class CoursesComponent implements OnInit{
 
   displayedColumns = ['name','category'];
 
-  constructor(private courseService: CoursesService){
+  constructor(private courseService: CoursesService, public dialog: MatDialog){
     this.courses$ = this.courseService.list()
     .pipe(
-      first(),
-      delay(1500)
+     catchError(error =>{
+      this.onError("Erro nessa porra")
+      return of([])
+     })
     );
   }
+
+  onError(msg:string) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: msg
+    });
+  }
+
+
 
   ngOnInit(): void {
   }
