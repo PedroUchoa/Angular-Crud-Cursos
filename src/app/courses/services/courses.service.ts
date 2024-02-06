@@ -17,7 +17,7 @@ export class CoursesService {
     return this.httpClient.get<Courses[]>(this.API);
   }
 
-  post(record: Courses){
+  post(record: Partial<Courses>){
     return this.httpClient.post<Courses>(this.API, record).pipe(first());
   }
 
