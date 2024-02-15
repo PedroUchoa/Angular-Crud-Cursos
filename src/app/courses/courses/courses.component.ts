@@ -16,8 +16,6 @@ export class CoursesComponent implements OnInit {
 
   courses$: Observable<Courses[]>;
 
-  displayedColumns = ['name', 'category', 'actions'];
-
   constructor(
     private courseService: CoursesService,
     public dialog: MatDialog,
@@ -33,20 +31,17 @@ export class CoursesComponent implements OnInit {
       );
   }
 
+  ngOnInit(): void {
+  }
+
   onError(msg: string) {
     this.dialog.open(ErrorDialogComponent, {
       data: msg
     });
   }
 
-
   onAdd() {
     this.router.navigate(['new'], { relativeTo: this.route })
   }
-
-
-  ngOnInit(): void {
-  }
-
 
 }
