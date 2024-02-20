@@ -4,8 +4,8 @@ import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
-import { CoursesService } from '../../services/courses.service';
 import { Courses } from '../../model/courses';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-course-form',
